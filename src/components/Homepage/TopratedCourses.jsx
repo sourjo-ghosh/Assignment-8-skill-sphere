@@ -52,7 +52,7 @@ const TopratedCourses = ({ courses }) => {
                   <div className="mt-5 border-t border-slate-200 p-5">
                     <div className="flex items-center justify-between gap-4">
                       <p className="wrap text-xl font-bold uppercase text-[#191B23]">
-                        {course.price}
+                        $ {course.price}
                       </p>
                       <button
                         aria-label={`Explore ${course.title}`}

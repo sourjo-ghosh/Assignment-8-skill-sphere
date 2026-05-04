@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { CiMenuBurger, CiMenuFries } from "react-icons/ci";
+import { BiMenu } from "react-icons/bi";
+// import { Menu } from "@gravity-ui/icons";
+import { FaXmark } from "react-icons/fa6";
 
 const Navbar = () => {
   const navLinks = [
@@ -14,89 +16,92 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar for Desktop */}
-      <nav className="w-11/12 mx-auto my-3 hidden md:flex lg:flex items-center justify-between">
-        {/* Right side or logo */}
-        <div>
-          <h1 className="text-[#2563EB] font-bold text-3xl">SkillSphere</h1>
-        </div>
-        {/* Navigation Links */}
-        <div>
-          <ul className="flex gap-6 text-lg font-medium">
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <Link
-                  href={link.href}
-                  className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        {/* User avatar
-            <div>
-                <img src="https://via.placeholder.com/40" alt="User Avatar" className='w-10 h-10 rounded-full' />
-            </div>
-
-             */}
-        {/* Right side or Login/Signup */}
-        <div>
-          <button className="cursor-pointer px-4 py-2 bg-[#2563EB] text-white rounded-md hover:bg-[#1E40AF] transition-colors duration-300">
-            Login
-          </button>
-          <button className="cursor-pointer ml-4 px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-300">
-            Sign Up
-          </button>
+      <nav className="w-full bg-white border-b border-gray-200">
+        <div className="w-11/12 mx-auto py-4 hidden md:flex lg:flex items-center justify-between">
+          {/* Logo */}
+          <div>
+            <Link href="/">
+              <h1 className="text-blue-600 font-bold text-3xl hover:text-blue-700 transition-colors">SkillSphere</h1>
+            </Link>
+          </div>
+          {/* Navigation Links */}
+          <div>
+            <ul className="flex gap-8 text-base font-medium">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-gray-700 hover:text-blue-600 transition-colors duration-300"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Right side or Login/Signup */}
+          <div className="flex gap-3">
+            <Link href="/auth/login">
+              <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
+                Login
+              </button>
+            </Link>
+            <Link href="/auth/signup">
+              <button className="px-6 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300">
+                Sign Up
+              </button>
+            </Link>
+          </div>
         </div>
       </nav>
       {/* Navbar for Tablets and Mobile */}
-      <nav className="md:hidden lg:hidden w-11/12 mx-auto my-3 flex items-center justify-between">
-        <div>
-          <h1 className="text-[#2563EB] font-bold text-3xl">SkillSphere</h1>
-        </div>
-        <div>
-          {/* User avatar
-            <div>
-                <img src="https://via.placeholder.com/40" alt="User Avatar" className='w-10 h-10 rounded-full' />
-            </div>
-
-             */}
+      <nav className="md:hidden lg:hidden w-full bg-white border-b border-gray-200">
+        <div className="w-11/12 mx-auto py-4 flex items-center justify-between">
+          <Link href="/">
+            <h1 className="text-blue-600 font-bold text-2xl hover:text-blue-700 transition-colors">SkillSphere</h1>
+          </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="cursor-pointer text-gray-600 hover:text-gray-900 focus:outline-none"
+            className="text-gray-700 hover:text-blue-600 focus:outline-none"
           >
             {isMobileMenuOpen ? (
-              <CiMenuFries size={24} />
+              <FaXmark size={24} />
             ) : (
-              <CiMenuBurger size={24} />
+              <BiMenu size={24} />
             )}
           </button>
-          {isMobileMenuOpen && (
-            <div className="absolute top-16 right-4 bg-white shadow-lg rounded-md p-4">
-              <ul className="flex flex-col gap-4 text-lg font-medium">
+        </div>
+        {isMobileMenuOpen && (
+          <div className="border-t border-gray-200 bg-white">
+            <div className="w-11/12 mx-auto py-4 space-y-4">
+              <ul className="flex flex-col gap-4 text-base font-medium">
                 {navLinks.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-600 hover:text-gray-900 transition-colors duration-300"
+                      className="text-gray-700 hover:text-blue-600 transition-colors duration-300"
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-              <div>
-                <button className="cursor-pointer w-full mt-4 px-4 py-2 bg-[#2563EB] text-white rounded-md hover:bg-[#1E40AF] transition-colors duration-300">
-                  Login
-                </button>
-                <button className="cursor-pointer w-full mt-2 px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors duration-300">
+              <div className="flex flex-col gap-2 pt-4 border-t border-gray-200">
+                <Link href="/auth/login" className="w-full">
+                  <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
+                    Login
+                  </button>
+                </Link>
+                <Link href="/auth/signup" className="w-full">
+                  <button className="w-full px-4 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300">
                     Sign Up
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </nav>
     </>
   );

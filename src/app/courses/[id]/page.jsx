@@ -1,5 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { BiBarChart, BiBrain, BiCheckCircle, BiChevronLeft } from 'react-icons/bi';
+import { FaRobot } from 'react-icons/fa';
+
 
 const CourseDetails = async ({ params }) => {
   const { id } = await params;
@@ -13,22 +17,22 @@ const CourseDetails = async ({ params }) => {
 
   const learningOutcomes = [
     {
-      icon: "🎯",
+      icon: BiChevronLeft,
       title: "Algorithm Design",
       description: "Build and train predictive models from scratch."
     },
     {
-      icon: "🤖",
+      icon: FaRobot,
       title: "Model Deployment",
       description: "Deploy local models into production-ready APIs."
     },
     {
-      icon: "📊",
+      icon: BiBarChart,
       title: "Data Processing",
       description: "Clean and structure complex datasets efficiently."
     },
     {
-      icon: "🧠",
+      icon: BiBrain,
       title: "Neural Networks",
       description: "Understand the architecture of deep learning systems."
     }
@@ -48,6 +52,11 @@ const CourseDetails = async ({ params }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left Content */}
           <div>
+            <button className=" bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300 mb-4">
+                <Link href={'/courses'}>
+              Back To All Courses
+                </Link>
+            </button>
             {/* Category Badges */}
             <div className="flex flex-wrap gap-2 mb-6">
               <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
@@ -146,7 +155,7 @@ const CourseDetails = async ({ params }) => {
             <div className="space-y-3">
               {courseBenefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <span className="text-blue-600 text-lg">✓</span>
+                  <BiCheckCircle size={20} className="text-blue-600 flex-shrink-0" />
                   <span className="text-sm text-gray-700">{benefit}</span>
                 </div>
               ))}
@@ -159,13 +168,18 @@ const CourseDetails = async ({ params }) => {
       <div className="w-11/12 mx-auto py-16">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">What you'll learn</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {learningOutcomes.map((outcome, index) => (
-            <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300">
-              <div className="text-4xl mb-4">{outcome.icon}</div>
-              <h3 className="font-bold text-gray-900 mb-2">{outcome.title}</h3>
-              <p className="text-sm text-gray-600">{outcome.description}</p>
-            </div>
-          ))}
+          {learningOutcomes.map((outcome, index) => {
+            const IconComponent = outcome.icon;
+            return (
+              <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition duration-300">
+                <div className="mb-4 text-blue-600">
+                  <IconComponent size={32} />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2">{outcome.title}</h3>
+                <p className="text-sm text-gray-600">{outcome.description}</p>
+              </div>
+            );
+          })}
         </div>
       </div>
 
