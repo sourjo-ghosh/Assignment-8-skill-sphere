@@ -1,0 +1,172 @@
+[
+  {
+    "id": 1,
+    "title": "Complete Web Development Bootcamp",
+    "instructor": {
+      "name": "John Doe",
+      "avatar": "https://i.pravatar.cc/150?img=1",
+      "bio": "Full-stack developer with 10+ years experience"
+    },
+    "duration": "20 hours",
+    "rating": 4.8,
+    "level": "Beginner",
+    "price": 49,
+    "discountPrice": 29,
+    "description": "Learn full-stack web development from scratch.",
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+    "category": "Development"
+  },
+  {
+    "id": 2,
+    "title": "Advanced React & Next.js",
+    "instructor": {
+      "name": "Sarah Lee",
+      "avatar": "https://i.pravatar.cc/150?img=5",
+      "bio": "Frontend engineer specializing in React ecosystem"
+    },
+    "duration": "18 hours",
+    "rating": 4.7,
+    "level": "Intermediate",
+    "price": 59,
+    "discountPrice": 39,
+    "description": "Master React, hooks, and Next.js for production apps.",
+    "image": "https://images.unsplash.com/photo-1633356122544-f134324a6cee",
+    "category": "Development"
+  },
+  {
+    "id": 3,
+    "title": "UI/UX Design Fundamentals",
+    "instructor": {
+      "name": "Emily Carter",
+      "avatar": "https://i.pravatar.cc/150?img=10",
+      "bio": "UI/UX designer"
+    },
+    "duration": "12 hours",
+    "rating": 4.6,
+    "level": "Beginner",
+    "price": 35,
+    "discountPrice": 19,
+    "description": "Learn design principles and UX basics.",
+    "image": "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e",
+    "category": "Design"
+  },
+  {
+    "id": 4,
+    "title": "Node.js & Express Backend",
+    "instructor": {
+      "name": "Michael Smith",
+      "avatar": "https://i.pravatar.cc/150?img=3",
+      "bio": "Backend developer"
+    },
+    "duration": "16 hours",
+    "rating": 4.7,
+    "level": "Intermediate",
+    "price": 55,
+    "discountPrice": 34,
+    "description": "Build scalable backend APIs.",
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+    "category": "Development"
+  },
+  {
+    "id": 5,
+    "title": "Python for Data Science",
+    "instructor": {
+      "name": "David Kim",
+      "avatar": "https://i.pravatar.cc/150?img=7",
+      "bio": "Data scientist"
+    },
+    "duration": "22 hours",
+    "rating": 4.9,
+    "level": "Beginner",
+    "price": 65,
+    "discountPrice": 45,
+    "description": "Learn Python and data analysis.",
+    "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+    "category": "Data Science"
+  },
+  {
+    "id": 6,
+    "title": "Machine Learning A-Z",
+    "instructor": {
+      "name": "Alex Chen",
+      "avatar": "https://i.pravatar.cc/150?img=8",
+      "bio": "AI engineer"
+    },
+    "duration": "25 hours",
+    "rating": 4.8,
+    "level": "Advanced",
+    "price": 79,
+    "discountPrice": 59,
+    "description": "Hands-on machine learning.",
+    "image": "https://images.unsplash.com/photo-1526378722484-bd91ca387e72",
+    "category": "AI"
+  },
+  {
+    "id": 7,
+    "title": "Tailwind CSS Mastery",
+    "instructor": {
+      "name": "Chris Evans",
+      "avatar": "https://i.pravatar.cc/150?img=12",
+      "bio": "CSS expert"
+    },
+    "duration": "10 hours",
+    "rating": 4.7,
+    "level": "Intermediate",
+    "price": 30,
+    "discountPrice": 18,
+    "description": "Modern UI with Tailwind.",
+    "image": "https://images.unsplash.com/photo-1505685296765-3a2736de412f",
+    "category": "Design"
+  },
+  {
+    "id": 8,
+    "title": "MongoDB & Database Design",
+    "instructor": {
+      "name": "Robert Brown",
+      "avatar": "https://i.pravatar.cc/150?img=15",
+      "bio": "Database engineer"
+    },
+    "duration": "14 hours",
+    "rating": 4.6,
+    "level": "Intermediate",
+    "price": 40,
+    "discountPrice": 25,
+    "description": "NoSQL database design.",
+    "image": "https://images.unsplash.com/photo-1544383835-bda2bc66a55d",
+    "category": "Database"
+  },
+  {
+    "id": 9,
+    "title": "JavaScript Deep Dive",
+    "instructor": {
+      "name": "Daniel White",
+      "avatar": "https://i.pravatar.cc/150?img=18",
+      "bio": "JS expert"
+    },
+    "duration": "19 hours",
+    "rating": 4.8,
+    "level": "Intermediate",
+    "price": 50,
+    "discountPrice": 32,
+    "description": "Advanced JS concepts.",
+    "image": "https://images.unsplash.com/photo-1627398242454-45a1465c2479",
+    "category": "Development"
+  },
+  {
+    "id": 10,
+    "title": "DevOps & CI/CD Pipeline",
+    "instructor": {
+      "name": "Sophia Miller",
+      "avatar": "https://i.pravatar.cc/150?img=20",
+      "bio": "DevOps engineer"
+    },
+    "duration": "17 hours",
+    "rating": 4.7,
+    "level": "Advanced",
+    "price": 70,
+    "discountPrice": 48,
+    "description": "Automate deployment.",
+    "image": "https://images.unsplash.com/photo-1605379399642-870262d3d051",
+    "category": "DevOps"
+  }
+]
