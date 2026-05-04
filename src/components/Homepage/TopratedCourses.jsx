@@ -8,7 +8,7 @@ const TopratedCourses = ({ courses }) => {
     .slice(0, 4);
 //   console.log(topRatedCourses);
   return (
-    <section className="w-full bg-slate-50 py-16">
+    <section className="w-full bg-[#E1E2ED]/50 py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center mb-10">
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-600">

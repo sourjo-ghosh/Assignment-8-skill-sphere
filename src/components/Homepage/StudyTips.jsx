@@ -3,7 +3,7 @@ import { FiClock, FiBookOpen, FiZap } from 'react-icons/fi';
 
 const StudyTips = () => {
   return (
-    <section className="w-full bg-slate-50 py-16">
+    <section className="w-full bg-[#E1E2ED]/50 py-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr]">
           <article className="rounded-4xl bg-slate-100 p-5 shadow-sm ring-1 ring-slate-200/70">
