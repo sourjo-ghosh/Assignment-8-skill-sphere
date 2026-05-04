@@ -1,17 +1,21 @@
 "use client";
 
-import { Square, SquareCheck, SquareFill } from "@gravity-ui/icons";
+import { authClient } from "@/app/lib/auth-client";
+import { Square, SquareCheck } from "@gravity-ui/icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 import { BsGoogle } from "react-icons/bs";
 import { FaGraduationCap } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const loginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-const [passwordErrors, setPasswordErrors] = useState("");
-const [emailErrors, setEmailErrors] = useState("");
-  const onSubmit = (e) => {
+  const [passwordErrors, setPasswordErrors] = useState("");
+  const [emailErrors, setEmailErrors] = useState("");
+  const router = useRouter();
+  const onSubmit = async (e) => {
     e.preventDefault();
     // Handle form submission logic here
     const formData = new FormData(e.currentTarget);
@@ -30,19 +34,36 @@ const [emailErrors, setEmailErrors] = useState("");
       return;
     }
     if (!/[A-Z]/.test(password)) {
-      setPasswordErrors("Password should contain at least one uppercase letter.");
+      setPasswordErrors(
+        "Password should contain at least one uppercase letter.",
+      );
       return;
     }
     if (!/[a-z]/.test(password)) {
-      setPasswordErrors("Password should contain at least one lowercase letter.");
+      setPasswordErrors(
+        "Password should contain at least one lowercase letter.",
+      );
       return;
     }
     if (!/[0-9]/.test(password)) {
       setPasswordErrors("Password should contain at least one number.");
       return;
     }
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const { data, error } = await authClient.signIn.email({
+      email: email, // required
+      password: password, // required
+      // callbackURL: "https://example.com/callback",
+    });
+    if (data) {
+      toast.success("Login successful! Redirecting...");
+      setTimeout(() => {
+        router.push("/"); // Change this to your desired redirect URL
+      }, 1500); // Redirect after 1.5 seconds to show the toast message
+    }
+    if (error) {
+      toast.error(error.message || "Login Failed");
+      // setLoading(false);
+    }
   };
   return (
     <div className="w-11/12 mx-auto min-h-125">
@@ -116,7 +137,14 @@ const [emailErrors, setEmailErrors] = useState("");
         </form>
         <div className="p-2 mt-6 flex flex-col justify-center items-center">
           <p>Or</p>
-          <button className="flex justify-center items-center gap-3 w-full border text-[15px] border-[#004AC6] rounded-xl cursor-pointer py-2 px-4 mt-3 text-black">
+          <button
+            onClick={() =>
+              authClient.signIn.social({
+                provider: "google",
+              })
+            }
+            className="flex justify-center items-center gap-3 w-full border text-[15px] border-[#004AC6] rounded-xl cursor-pointer py-2 px-4 mt-3 text-black"
+          >
             <BsGoogle />
             Login with Google
           </button>
