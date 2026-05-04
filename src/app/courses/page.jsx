@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const CoursesPage = async () => {
@@ -57,7 +58,9 @@ const CoursesPage = async () => {
 
                 {/* View Details Button */}
                 <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+                <Link href={`/courses/${course.id}`}>
                   View Details
+                </Link>
                 </button>
               </div>
             </div>
