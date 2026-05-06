@@ -1,28 +1,63 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { motion } from "framer-motion";
 
 const TopratedCourses = ({ courses }) => {
   const topRatedCourses = courses
     .filter((course) => Number(course.rating) >= 4.8)
     .slice(0, 4);
-//   console.log(topRatedCourses);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
   return (
     <section className="w-full bg-[#E1E2ED]/50 py-16">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-10">
+        <motion.div 
+          className="text-center mb-10"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
           <p className="text-sm font-semibold uppercase tracking-[0.32em] text-sky-600">
             Top-Rated Programs
           </p>
           <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-slate-900">
             Carefully curated courses to accelerate your career.
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+        <motion.div 
+          className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
           {topRatedCourses.map((course) => (
-            <article
+            <motion.article
               key={course.id}
+              variants={cardVariants}
               className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_20px_80px_rgba(15,23,42,0.08)] transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="relative overflow-hidden">
@@ -64,9 +99,9 @@ const TopratedCourses = ({ courses }) => {
                   </div>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

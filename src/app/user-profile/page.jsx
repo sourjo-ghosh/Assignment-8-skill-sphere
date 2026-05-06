@@ -6,6 +6,19 @@ import Image from "next/image";
 import { TfiEmail } from "react-icons/tfi";
 import { PersonFill } from "@gravity-ui/icons";
 
+export const metadata = {
+  title: "My Profile | SkillSphere",
+  description: "View and manage your profile information, track your course enrollments, and update your learning preferences.",
+  keywords: ["user profile", "account settings", "course progress"],
+  authors: [{ name: "SkillSphere" }],
+  openGraph: {
+    title: "My Profile | SkillSphere",
+    description: "View and manage your profile information.",
+    type: "website",
+    url: "https://skill-sphere-steel.vercel.app/user-profile",
+  },
+};
+
 const UserProfile = () => {
   const { data: session } = authClient.useSession();
 //   console.log(session);

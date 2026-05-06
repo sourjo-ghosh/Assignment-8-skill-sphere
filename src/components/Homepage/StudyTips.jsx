@@ -1,12 +1,44 @@
+"use client";
+
 import React from 'react';
 import { FiClock, FiBookOpen, FiZap } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 const StudyTips = () => {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
   return (
     <section className="w-full bg-[#E1E2ED]/50 py-16">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid gap-6 lg:grid-cols-[1.45fr_1fr]">
-          <article className="rounded-4xl bg-slate-100 p-5 shadow-sm ring-1 ring-slate-200/70">
+        <motion.div 
+          className="grid gap-6 lg:grid-cols-[1.45fr_1fr]"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <motion.article 
+            variants={cardVariants}
+            className="rounded-4xl bg-slate-100 p-5 shadow-sm ring-1 ring-slate-200/70"
+          >
             <div className="inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-200 text-slate-700 shadow-sm">
               <FiBookOpen size={24} />
             </div>
@@ -23,10 +55,18 @@ const StudyTips = () => {
               Access Library
               <span aria-hidden="true">→</span>
             </a>
-          </article>
+          </motion.article>
 
-          <div className="grid gap-6">
-            <article className="rounded-4xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70">
+          <motion.div 
+            className="grid gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.article 
+              variants={cardVariants}
+              className="rounded-4xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70"
+            >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-sky-100 text-sky-700 shadow-sm">
                 <FiClock size={20} />
               </div>
@@ -36,9 +76,12 @@ const StudyTips = () => {
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 Break your work into focused 25-minute intervals separated by short breaks to maintain peak cognitive function without burnout.
               </p>
-            </article>
+            </motion.article>
 
-            <article className="rounded-4xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70">
+            <motion.article 
+              variants={cardVariants}
+              className="rounded-4xl bg-white p-8 shadow-sm ring-1 ring-slate-200/70"
+            >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-sky-100 text-sky-700 shadow-sm">
                 <FiZap size={20} />
               </div>
@@ -48,9 +91,9 @@ const StudyTips = () => {
               <p className="mt-3 text-sm leading-7 text-slate-600">
                 Shift from passive reading to active self-testing. This method strengthens neural pathways and significantly improves long-term memory.
               </p>
-            </article>
-          </div>
-        </div>
+            </motion.article>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
