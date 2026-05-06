@@ -79,9 +79,9 @@ const updateProfilePage = () => {
               </p>
             </div>
           </div>
-          <button className="mt-5 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300">
+          {/* <button className="mt-5 bg-blue-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-blue-700 transition duration-300">
             <Link href={`/update-profile`}>Update Profile</Link>
-          </button>
+          </button> */}
 
           <div>
             <form className="mt-8" onSubmit={onSubmit}>

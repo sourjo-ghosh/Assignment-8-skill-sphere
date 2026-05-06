@@ -1,19 +1,6 @@
 
 import CoursePageComponents from "@/components/CoursePageComponents";
 
-export const metadata = {
-  title: "Explore Catalog | SkillSphere",
-  description: "Browse our comprehensive selection of professional courses designed to accelerate your career. Find the right course to advance your skills.",
-  keywords: ["course catalog", "online learning", "professional courses", "skill development"],
-  authors: [{ name: "SkillSphere" }],
-  openGraph: {
-    title: "Explore Catalog | SkillSphere",
-    description: "Browse our comprehensive selection of professional courses.",
-    type: "website",
-    url: "https://skill-sphere-steel.vercel.app/courses",
-  },
-};
-
 const CoursesPage = async () => {
   
     const baseUrl = process.env.BETTER_AUTH_URL || "";
