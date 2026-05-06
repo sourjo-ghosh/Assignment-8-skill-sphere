@@ -7,7 +7,9 @@ import { FaRobot } from 'react-icons/fa';
 
 const CourseDetails = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch("http://localhost:3000/data.json");
+
+   const baseUrl = process.env.BETTER_AUTH_URL || "";
+  const res = await fetch(`${baseUrl}/data.json`);
   const courses = await res.json(); 
   const course = courses.find(course => course.id == id);
 
