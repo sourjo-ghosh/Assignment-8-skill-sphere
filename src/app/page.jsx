@@ -5,7 +5,8 @@ import Instructors from "@/components/Homepage/Instructors";
 
 
 export default async function Home() {
-  const res = await fetch("http://localhost:3000/data.json");
+  const baseUrl = process.env.BETTER_AUTH_URL || "";
+  const res = await fetch(`${baseUrl}/data.json`);
   const courses = await res.json();  
   return (
     <div className="flex flex-col items-center justify-center ">

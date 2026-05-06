@@ -5,7 +5,9 @@ import Link from "next/link";
 
 
 const CoursesPage = async () => {
-  const res = await fetch("http://localhost:3000/data.json");
+  // const res = await fetch("http://localhost:3000/data.json");
+    const baseUrl = process.env.BETTER_AUTH_URL || "";
+  const res = await fetch(`${baseUrl}/data.json`);
   const courseData = await res.json();
   return (
     <div className="w-full bg-white">
