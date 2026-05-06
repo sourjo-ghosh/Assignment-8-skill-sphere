@@ -8,7 +8,8 @@ import React, { useState } from "react";
 
 import { BsGoogle } from "react-icons/bs";
 import { FaGraduationCap } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+// import Form from 'next/form'
 
 const loginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,9 +17,10 @@ const loginPage = () => {
   const [emailErrors, setEmailErrors] = useState("");
   const router = useRouter();
   const onSubmit = async (e) => {
+    const form = e.currentTarget;
     e.preventDefault();
-    // Handle form submission logic here
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(form);
+    // const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
     if (password.length < 8) {
@@ -49,23 +51,41 @@ const loginPage = () => {
       setPasswordErrors("Password should contain at least one number.");
       return;
     }
-    const { data, error } = await authClient.signIn.email({
-      email: email, // required
-      password: password, // required
-      // callbackURL: "https://example.com/callback",
-    });
-    if (data) {
-      toast.success("Login successful! Redirecting...");
-      setTimeout(() => {
-        router.push("/"); // Change this to your desired redirect URL
-      }, 1500); // Redirect after 1.5 seconds to show the toast message
+
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: email,
+        password: password,
+      });
+      if (data) {
+        toast.success("Login successful! Redirecting...");
+        setTimeout(() => router.push("/"), 1500);
+      }
+      if (error) {
+        toast.error(error.message || "Login Failed");
+      }
+    } catch (err) {
+      toast.error("Something went wrong!");
+      console.error(err);
     }
-    if (error) {
-      toast.error(error.message || "Login Failed");
-      // setLoading(false);
-    }
+    //   const { data, error } = await authClient.signIn.email({
+    //     email: email, // required
+    //     password: password, // required
+    //     // callbackURL: "https://example.com/callback",
+    //   });
+    //   if (data) {
+    //     toast.success("Login successful! Redirecting...");
+    //     setTimeout(() => {
+    //       router.push("/"); // Change this to your desired redirect URL
+    //     }, 1500); // Redirect after 1.5 seconds to show the toast message
+    //   }
+    //   if (error) {
+    //     toast.error(error.message || "Login Failed");
+    //   }
   };
   return (
+    <>
+    <ToastContainer position="top-right" autoClose={1500} />
     <div className="w-11/12 mx-auto min-h-125">
       <div className="flex justify-center items-center flex-col border-t-7 border-[#004AC6] mt-5 bg-[#E1E2ED]/60 p-8 rounded-2xl">
         <div className="bg-[#004AC6] p-4 rounded-full my-3">
@@ -80,7 +100,7 @@ const loginPage = () => {
             <label
               id="email"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Email Address
             </label>
             <input
@@ -89,7 +109,7 @@ const loginPage = () => {
               required
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="jhon@example.com"
-            />
+              />
             {emailErrors && (
               <p className="text-red-500 text-sm mt-1">{emailErrors}</p>
             )}
@@ -98,7 +118,7 @@ const loginPage = () => {
             <label
               id="password"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Password
             </label>
             <input
@@ -107,12 +127,12 @@ const loginPage = () => {
               required
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="Enter Your Password"
-            />
+              />
             <div className="text-black text-[15px]">
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-              >
+                >
                 {showPassword ? (
                   <div className="flex justify-center items-center gap-2">
                     <SquareCheck /> Hide Password
@@ -131,7 +151,7 @@ const loginPage = () => {
           <button
             type="submit"
             className="flex justify-center items-center gap-3 w-full bg-[#004AC6] rounded-xl cursor-pointer p-3 mt-5 text-white"
-          >
+            >
             Login
           </button>
         </form>
@@ -144,7 +164,7 @@ const loginPage = () => {
               })
             }
             className="flex justify-center items-center gap-3 w-full border text-[15px] border-[#004AC6] rounded-xl cursor-pointer py-2 px-4 mt-3 text-black"
-          >
+            >
             <BsGoogle />
             Login with Google
           </button>
@@ -157,6 +177,7 @@ const loginPage = () => {
         </div>
       </div>
     </div>
+            </>
   );
 };
 

@@ -5,17 +5,19 @@ import Link from "next/link";
 import { ArrowRight, Square, SquareCheck } from "@gravity-ui/icons";
 import { authClient } from "@/app/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState("");
   const [emailErrors, setEmailErrors] = useState("");
+  const router = useRouter();
   const onSubmit = async (e) => {
-    const router = useRouter();
+    const form = e.currentTarget;
     e.preventDefault();
+    const formData = new FormData(form);
     // Handle form submission logic here
-    const formData = new FormData(e.currentTarget);
+    // const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
     const name = formData.get("name");
@@ -48,22 +50,35 @@ const SignupPage = () => {
       setPasswordErrors("Password should contain at least one number.");
       return;
     }
-    const { data, error } = await authClient.signUp.email({
-      name: name, // required
-      email: email, // required
-      password: password, // required
-      image: image,
-    });
-   
-    
-    if(data){
-      authClient.signOut()
-      router.push("/auth/login")
-    } else { 
-    toast.error(error.message);
+    // const { data, error } = await authClient.signUp.email({
+    //   name: name, // required
+    //   email: email, // required
+    //   password: password, // required
+    //   image: image,
+    // });
+    try {
+      const { data, error } = await authClient.signUp.email({
+        name: name, // required
+        email: email, // required
+        password: password, // required
+        image: image,
+      });
+      if (data) {
+        toast.success("Sign Up successful");
+        setTimeout(()=>{
+          authClient.signOut()
+          router.push("/auth/login");
+        },1500)
+      }
+      if (error) {
+        toast.error(error.message);
+      }
+    } catch (err) {
     }
   };
   return (
+    <>
+    <ToastContainer position="top-right" autoClose={1500} />
     <div className="w-11/12 mx-auto min-h-125">
       <div className="flex justify-center items-center flex-col border-t-7 border-[#004AC6] mt-5 bg-[#E1E2ED]/60 p-8 rounded-2xl">
         <h1 className="text-[#004AC6] font-bold text-3xl">SkillSphere</h1>
@@ -75,7 +90,7 @@ const SignupPage = () => {
             <label
               id="name"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Full name
             </label>
             <input
@@ -84,13 +99,13 @@ const SignupPage = () => {
               required
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="Jhon Doe"
-            />
+              />
           </div>
           <div className="flex flex-col justify-start gap-1 mt-3">
             <label
               id="photoUrl"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Photo URL
             </label>
             <input
@@ -98,13 +113,13 @@ const SignupPage = () => {
               name="photoUrl"
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="Your photo url"
-            />
+              />
           </div>
           <div className="flex flex-col justify-start gap-1 mt-3">
             <label
               id="email"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Email Address
             </label>
             <input
@@ -113,7 +128,7 @@ const SignupPage = () => {
               required
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="jhon@example.com"
-            />
+              />
             {emailErrors && (
               <p className="text-red-500 text-sm mt-1">{emailErrors}</p>
             )}
@@ -122,7 +137,7 @@ const SignupPage = () => {
             <label
               id="password"
               className="text-[#191B23] text-[15px] font-medium w-80"
-            >
+              >
               Password
             </label>
             <input
@@ -131,7 +146,7 @@ const SignupPage = () => {
               required
               className="outline-[#004AC6] bg-white p-2 rounded-2xl"
               placeholder="Enter Your Password"
-            />
+              />
             {passwordErrors && (
               <p className="text-red-500 text-sm mt-1">{passwordErrors}</p>
             )}
@@ -139,7 +154,7 @@ const SignupPage = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-              >
+                >
                 {showPassword ? (
                   <div className="flex justify-center items-center gap-2">
                     <SquareCheck /> Hide Password
@@ -158,7 +173,7 @@ const SignupPage = () => {
           <button
             type="submit"
             className="flex justify-center items-center gap-3 w-full bg-[#004AC6] rounded-xl cursor-pointer p-3 mt-5 text-white"
-          >
+            >
             <ArrowRight /> Register
           </button>
           <p className="mt-4 text-[16px] text-[#434655]">
@@ -171,12 +186,13 @@ const SignupPage = () => {
         {/* <div className="p-2 mt-6 flex flex-col justify-center items-center">
             <p>Or</p>
             <button className="flex justify-center items-center gap-3 w-full border text-[15px] border-[#004AC6] rounded-xl cursor-pointer py-2 px-4 mt-3 text-black">
-                <BsGoogle/>
-                Login with Google
+            <BsGoogle/>
+            Login with Google
             </button>
-        </div> */}
+            </div> */}
       </div>
     </div>
+            </>
   );
 };
 

@@ -1,14 +1,16 @@
 "use client";
-
 import { authClient } from "@/app/lib/auth-client";
 import Image from "next/image";
 // import { useSession } from "@/app/lib/auth-client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { BiMenu } from "react-icons/bi";
 import { FaXmark } from "react-icons/fa6";
 
 const Navbar = () => {
+  const pathName = usePathname();
+  // console.log(pathName);
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Courses", href: "/courses" },
@@ -19,7 +21,7 @@ const Navbar = () => {
   // console.log(session)
   const { data: session } = authClient.useSession();
   const userName = session?.user?.name; // "Joy Ghosh"
-  const userEmail = session?.user?.email; // "joyg03426@gmail.com"
+  // const userEmail = session?.user?.email; // "joyg03426@gmail.com"
   const userPhoto = session?.user?.image; // photo URL
 
   return (
@@ -42,7 +44,7 @@ const Navbar = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-gray-700 hover:text-blue-600 transition-colors duration-300"
+                    className={`${pathName === link.href ? "underline font-semibold text-blue-800" : "text-gray-700"}  hover:text-blue-600 transition-colors duration-300`}
                   >
                     {link.name}
                   </Link>
@@ -51,7 +53,6 @@ const Navbar = () => {
             </ul>
           </div>
           {/* User avatar */}
-
 
           {/* Right side or Login/Signup */}
           {session ? (
@@ -63,10 +64,13 @@ const Navbar = () => {
                 width={30}
                 className="rounded-full"
               ></Image>
-              <p>{userName}</p>
-              <button onClick={()=>  authClient.signOut()} className="px-6 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300">
-                  Logout 
-                </button>
+              <p className="text-black">{userName}</p>
+              <button
+                onClick={() => authClient.signOut()}
+                className="px-6 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300"
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div className="flex gap-3">
@@ -92,12 +96,23 @@ const Navbar = () => {
               SkillSphere
             </h1>
           </Link>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-gray-700 hover:text-blue-600 focus:outline-none"
-          >
-            {isMobileMenuOpen ? <FaXmark size={24} /> : <BiMenu size={24} />}
-          </button>
+          <div className="flex justify-center items-center gap-5">
+            {session && (
+              <Image
+                src={userPhoto}
+                alt={userName}
+                height={30}
+                width={30}
+                className="rounded-full"
+              ></Image>
+            )}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-700 hover:text-blue-600 focus:outline-none"
+            >
+              {isMobileMenuOpen ? <FaXmark size={24} /> : <BiMenu size={24} />}
+            </button>
+          </div>
         </div>
         {isMobileMenuOpen && (
           <div className="border-t border-gray-200 bg-white">
@@ -107,15 +122,14 @@ const Navbar = () => {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-700 hover:text-blue-600 transition-colors duration-300"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`${pathName === link.href ? "underline font-semibold text-blue-800" : "text-gray-700"}  hover:text-blue-600 transition-colors duration-300`}
                     >
                       {link.name}
                     </Link>
                   </li>
                 ))}
               </ul>
-              <div className="flex flex-col gap-2 pt-4 border-t border-gray-200">
+              {/* <div className="flex flex-col gap-2 pt-4 border-t border-gray-200">
                 <Link href="/auth/login" className="w-full">
                   <button className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
                     Login
@@ -126,7 +140,36 @@ const Navbar = () => {
                     Sign Up
                   </button>
                 </Link>
-              </div>
+              </div> */}
+              {session ? (
+                <div className="flex justify-center items-center gap-2">
+                  <p className="text-black">
+                    Hello,{" "}
+                    <span className="text-blue-700 text-xl">
+                      {userName}
+                    </span>{" "}
+                  </p>
+                  <button
+                    onClick={() => authClient.signOut()}
+                    className="px-6 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-3">
+                  <Link href="/auth/login">
+                    <button className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300">
+                      Login
+                    </button>
+                  </Link>
+                  <Link href="/auth/signup">
+                    <button className="px-6 py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold border border-blue-200 hover:bg-blue-100 transition-colors duration-300">
+                      Sign Up
+                    </button>
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         )}
