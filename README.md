@@ -1,6 +1,8 @@
 # 🎓 SkillSphere
 
 **A minimalist online learning platform focused on clarity and cognitive ease.**
+<img width="1425" height="763" alt="image" src="https://github.com/user-attachments/assets/dfbae05d-f395-4b77-8b73-94ef83468749" />
+
 
 SkillSphere empowers learners with quality education and skill development — without distractions. Built with a low-stimulus, clean UI philosophy so learners can focus purely on their academic growth.
 
